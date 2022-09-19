@@ -1,0 +1,14 @@
+[user]
+	email = edicsonabelinfo@gmail.com
+	name = Edicson Abel
+[color]
+	ui = true
+[core]
+	editor = nvim
+[alias]
+	loga = log --oneline --decorate --graph --all
+	unstage = reset HEAD --
+	conflicts = diff --diff-filter=U
+	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+[init]
+	defaultBranch = main

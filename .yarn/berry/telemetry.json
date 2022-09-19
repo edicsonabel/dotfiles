@@ -1,0 +1,36 @@
+{
+  "lastUpdate": 1646224214674,
+  "blocks": {
+    "*": {
+      "values": {
+        "version": [
+          "3.2.0",
+          "3.0.0"
+        ],
+        "commandName": [
+          "set version",
+          "create",
+          "<none>",
+          "dlx",
+          "install"
+        ],
+        "workspaceCount": [
+          "1"
+        ],
+        "dependencyCount": [
+          "0"
+        ]
+      },
+      "enumerators": {
+        "projectCount": [
+          "cf7d85c0f8e8230d9c6772bea12a8a691d05296603b728d89dba0d08d85ca48c0de8b0682e562c99150997121be9cb5a0078638796a3c88c96fa95bf3454b0e8"
+        ]
+      },
+      "hits": {
+        "installCount": {
+          "pnp": 1
+        }
+      }
+    }
+  }
+}

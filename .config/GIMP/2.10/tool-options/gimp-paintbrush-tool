@@ -1,0 +1,13 @@
+# GIMP gimp-paintbrush-tool options
+
+(foreground (color-rgb 1 1 1))
+(background (color-rgb 0 0 0))
+(opacity 0.98999999999999999)
+(brush "2. Hardness 100")
+(dynamics "Dynamics Off")
+(gradient "Personalizado")
+(palette "Histórico de color")
+(brush-size 28)
+(dynamics-expanded yes)
+
+# end of gimp-paintbrush-tool options
