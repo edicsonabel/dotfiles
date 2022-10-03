@@ -388,7 +388,9 @@ shell:
   args:
     - -l
     - -c
-    - 'tmux new-window || tmux new -s 🚀 && tmux attach -t 🚀'
+    - '$(tmux new-window > /dev/null 2>&1 || tmux new -s 🚀 > /dev/null 2>&1) && tmux attach -t 🚀 > /dev/null 2>&1'
+    # - '$(tmux split -h > /dev/null 2>&1 || tmux new -s 🚀 > /dev/null 2>&1) && tmux attach -t 🚀 > /dev/null 2>&1'
+    # - 'tmux new-window || tmux new -s 🚀 && tmux attach -t 🚀'
     # - 'tmux split -h || tmux new -s 🚀 && tmux attach -t 🚀'
 
 # Startup directory
