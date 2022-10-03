@@ -50,10 +50,32 @@ function htop { & ntop $args}
 function .. { & cd ..}
 
 function projects { & cd 'D:\Projects\'}
-function yi { & yarn install}
-function ys { & yarn start}
-function ni { & npm install}
-function ns { & npm run start}
+
+# NPM
+function na { & npm add $args }
+function ni { & npm install $args }
+function nr { & npm remove $args }
+function ns { & npm start $args }
+function nu { & npm up $args }
+function ninit { & npm init $args }
+function nrun { & npm run $args }
+# YARN
+function ya { & yarn add $args }
+function yi { & yarn install $args }
+function yr { & yarn remove $args }
+function yu { & yarn up $args }
+function ys { & yarn start $args }
+function yinit { & yarn init $args }
+function yrun { & yarn run $args }
+# PNPM
+function pna { & pnpm add $args }
+function pni { & pnpm install $args }
+function pnr { & pnpm remove $args }
+function pnu { & pnpm up $args }
+function pns { & pnpm start $args }
+function pninit { & pnpm init $args }
+function pnrun { & pnpm run $args }
+
 function pwdFn { & Get-Location | Foreach-Object { $_.Path } }
 Set-Alias pwd pwdFn
 Set-Alias vim nvim
