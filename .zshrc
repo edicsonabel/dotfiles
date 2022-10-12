@@ -383,7 +383,7 @@ prompt_aws() {
 }
 
 nvm() {
-  # echo "🚨 NVM not loaded! Loading now..."
+  echo "🚨 NVM not loaded! Loading now..."
   unset -f nvm
   # export XDG_CONFIG_HOME='/usr/share'
   export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -420,6 +420,12 @@ yarn() {
   nvm_load
   unset -f yarn
   yarn "$@"
+}
+
+pnpm() {
+  nvm_load
+  unset -f pnpm
+  pnpm "$@"
 }
 
 clipcopy() {
