@@ -49,7 +49,7 @@ function lha { & ls -lha $args}
 function htop { & ntop $args}
 function .. { & cd ..}
 
-function projects { & cd 'D:\Projects\'}
+function projects { & cd $($Env:PROJECTS)}
 
 # NPM
 function na { & npm add $args }
