@@ -99,7 +99,7 @@ We open the windows terminal settings and look for the option **Open JSON file**
 irm get.scoop.sh | iex
 
 # Installation of external programs
-scoop install nvm sudo bat lsd neovim fzf which
+scoop install nvm sudo bat lsd neovim fzf which ntop
 
 # Oh My Posh
 winget install -e --id JanDeDobbeleer.OhMyPosh
