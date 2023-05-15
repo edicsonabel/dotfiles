@@ -39,8 +39,11 @@ del alias:diff -Force
 Set-Alias diff diffGit
 function echoGit { & echo.exe $args}
 del alias:echo -Force
-
 Set-Alias echo echoGit
+function findGit { & "$(gitDir)\find.exe" $args}
+# del alias:find -Force
+Set-Alias find findGit
+
 function l { & ls $args}
 function ll { & ls -l $args}
 function la { & ls -la $args}
