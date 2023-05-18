@@ -104,6 +104,9 @@ scoop install nvm sudo bat lsd neovim fzf which ntop
 # Oh My Posh
 winget install -e --id JanDeDobbeleer.OhMyPosh
 
+# posh-git
+Install-Module -Name posh-git -Scope CurrentUser -Force
+
 # Terminal-Icons
 Install-Module -Name Terminal-Icons -Repository PSGallery -Force
 
@@ -118,6 +121,9 @@ sudo Install-Module -Name z -Force
 
 # Go to the user's home folder
 cd
+
+# Copy `.gitconfig` to home
+cp .\dotfiles\.gitconfig
 
 # We clone the dotfiles
 git clone https://github.com/edicsonabel/dotfiles.git
