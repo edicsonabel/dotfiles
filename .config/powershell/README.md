@@ -1,7 +1,7 @@
 ## Installation of basic programs (CMD)
 ```ps
 # Brave
-winget install -e --id BraveSoftware.BraveBrowser
+winget install -e --id Brave.Brave
 
 # 7-Zip
 winget install -e --id 7zip.7zip
@@ -122,11 +122,11 @@ sudo Install-Module -Name z -Force
 # Go to the user's home folder
 cd
 
-# Copy `.gitconfig` to home
-cp .\dotfiles\.gitconfig
-
 # We clone the dotfiles
 git clone https://github.com/edicsonabel/dotfiles.git
+
+# Copy `.gitconfig` to home
+cp .\dotfiles\.gitconfig
 
 # Set custom startup in PowerShell
 echo '. $env:USERPROFILE\dotfiles\.config\powershell\user_profile.ps1' > $PROFILE.CurrentUserCurrentHost
