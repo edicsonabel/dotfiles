@@ -123,7 +123,7 @@ sudo Install-Module -Name z -Force
 cd
 
 # We clone the dotfiles
-git clone https://github.com/edicsonabel/dotfiles.git
+git clone https://github.com/edicsonabel/dotfiles.git --depth=1
 
 # Copy `.gitconfig` to home
 cp .\dotfiles\.gitconfig
