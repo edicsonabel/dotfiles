@@ -27,11 +27,10 @@
           "powerline_symbol": "\ue0b0",
           "properties": {
             "folder_icon": " \uf07b ",
-            "home_icon": "\uf7dd",
             "style": "folder"
           },
           "style": "powerline",
-          "template": " \uf07b\uf553{{ .Path }} ",
+          "template": " {{ .Path }} ",
           "type": "path"
         },
         {
@@ -61,7 +60,7 @@
             "threshold": 0
           },
           "style": "diamond",
-          "template": " \ufa1e{{ .FormattedMs }}\u2800",
+          "template": " \uf017 {{ .FormattedMs }}\u2800",
           "trailing_diamond": "\ue0b4",
           "type": "executiontime"
         },
@@ -87,7 +86,7 @@
           "properties": {
             "fetch_package_manager": true,
             "npm_icon": " <#cc3a3a>\ue5fa</> ",
-            "yarn_icon": " <#2A87B2>\uf61a</>"
+            "yarn_icon": " <#2A87B2>\ue6a7</>"
           },
           "style": "diamond",
           "template": "\ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }}",
@@ -126,7 +125,7 @@
           "foreground": "#06aad5",
           "leading_diamond": "\ue0b6",
           "style": "diamond",
-          "template": "\ufcd1 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}",
+          "template": "\ue724 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}",
           "trailing_diamond": "\ue0b4 ",
           "type": "go"
         },
@@ -198,7 +197,7 @@
           "foreground": "#ffffff",
           "leading_diamond": "\ue0b6",
           "style": "diamond",
-          "template": "\ufd31 {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}",
+          "template": "\udb84\udcfe {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}",
           "trailing_diamond": "\ue0b4",
           "type": "kubectl"
         }
@@ -224,7 +223,7 @@
             "always_enabled": true
           },
           "style": "plain",
-          "template": "\ue285\ufb00 ",
+          "template": "\ue285 ",
           "type": "exit"
         }
       ],
