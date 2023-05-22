@@ -33,7 +33,9 @@ C:\Program Files\Git\usr\bin
 ```
 
 ## Install Nerd Fonts
-We go to [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts), open the release of fonts and only download the one that says `Hack.zip`
+We go to [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts/releases), and download the font that you like the most, in my case I will choose `CascadiaCode.zip` which has the name `CaskaydiaCove Nerd Font`
+
+> Note: If you choose another font, remember to change it in the terminal settings below or use the UI to find your font
 
 ## PowerShell config
 We open the windows terminal settings and look for the option **Open JSON file** and add the following settings
@@ -52,7 +54,7 @@ We open the windows terminal settings and look for the option **Open JSON file**
       "cursorShape": "underscore",
       "experimental.retroTerminalEffect": false,
       "font": {
-        "face": "Hack NF",
+        "face": "CaskaydiaCove Nerd Font", // Select your font name
         "size": 10
       },
       "opacity": 85,
