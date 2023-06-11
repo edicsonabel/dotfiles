@@ -98,7 +98,7 @@ alias pnrun='pnpm run'
 alias ea='/run/media/edicsonabel/EdicsonAbel/'
 alias projects='/run/media/edicsonabel/EdicsonAbel/Proyectos/'
 alias cat='bat'
-alias vim='nvim'
+alias vim='nvim && rc'
 # set default EDITOR and VISUAL (vim or nano)
 if [ -z "$(which nvim)" ]; then
   export EDITOR="nano"
