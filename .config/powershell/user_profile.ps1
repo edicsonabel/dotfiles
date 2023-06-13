@@ -73,10 +73,19 @@ function pninit { & pnpm init $args }
 function pnrun { & pnpm run $args }
 
 <# Customized aliases #>
-function cleanMemory { 
+function cleanHistory { 
   [Microsoft.PowerShell.PSConsoleReadLine]::ClearHistory()
   rm (Get-PSReadlineOption).HistorySavePath
 }
+function PSHistory { 
+  if($args -contains '-c'){
+    & cleanHistory
+  } else {
+    & "$(gitDir)\cat.exe" (Get-PSReadlineOption).HistorySavePath
+  }
+}
+del alias:history -Force
+Set-Alias history PSHistory
 function htop { & ntop $args}
 function .. { & cd ..}
 function projects { & cd $($Env:PROJECTS)}
