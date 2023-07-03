@@ -185,6 +185,7 @@ function gsr {& git svn rebase $args }
 function gss {& git status -s $args }
 function gst {& git status $args }
 
+function gsta {& git stash $args }
 function gstaa {& git stash apply $args }
 function gstc {& git stash clear $args }
 function gstd {& git stash drop $args }
