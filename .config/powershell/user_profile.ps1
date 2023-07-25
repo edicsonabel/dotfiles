@@ -23,6 +23,9 @@ function Get-ScriptDirectory { Split-Path $MyInvocation.ScriptName }
 $PROMPT_CONFIG = Join-Path (Get-ScriptDirectory) 'edicsonabel.omp.json'
 oh-my-posh --init --shell pwsh --config $PROMPT_CONFIG | Invoke-Expression
 
+<# FNM #>
+fnm env --use-on-cd | Out-String | Invoke-Expression
+
 <# Plugin #>
 . (Join-Path (Get-ScriptDirectory) "plugins\git.plugin.ps1")
 
