@@ -382,52 +382,6 @@ prompt_aws() {
   esac
 }
 
-nvm() {
-  echo "🚨 NVM not loaded! Loading now..."
-  unset -f nvm
-  # export XDG_CONFIG_HOME='/usr/share'
-  export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-  nvm "$@"
-}
-
-nvm_load(){
-  if command -v nvm &> /dev/null ; then
-    nvm &>/dev/null
-  fi
-}
-
-node() {
-  nvm_load
-  unset -f node
-  node "$@"
-}
-
-npm() {
-  nvm_load
-  unset -f npm
-  npm "$@"
-}
-
-npx() {
-  nvm_load
-  unset -f npx
-  npx "$@"
-}
-
-yarn() {
-  nvm_load
-  unset -f yarn
-  yarn "$@"
-}
-
-pnpm() {
-  nvm_load
-  unset -f pnpm
-  pnpm "$@"
-}
-
 clipcopy() {
   xclip -sel clip "$@"
 }

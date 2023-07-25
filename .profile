@@ -25,22 +25,24 @@ if [ -d "$HOME/.local/bin" ] ; then
   PATH="$HOME/.local/bin:$PATH"
 fi
 
-if [ -d "$HOME/.sencha/bin/Sencha/Cmd" ] ; then
-  PATH="$HOME/.sencha/bin/Sencha/Cmd:$PATH"
-fi
-
 # YARN
 if [ -d "$HOME/.yarn/bin" ] ; then
   PATH="$HOME/.yarn/bin:$PATH"
 fi
 
-# YARN
+# GO
 if [ -d "$HOME/go" ] ; then
   export GOPATH=$HOME/go
   export GOBIN=$GOPATH/bin
   # export GOROOT=/usr/bin/go
   # export GOROOT=/usr/local/go
   PATH=$PATH:$GOBIN
+fi
+
+# FNM
+if [ -d "$HOME/.local/share/fnm" ] ; then
+  PATH="$HOME/.local/share/fnm:$PATH"
+  eval "`fnm env`"
 fi
 
 if [ -d "/usr/lib/jvm/jdk1.8.0_231" ] ; then
