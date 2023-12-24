@@ -46,7 +46,7 @@ if [ -d "$HOME/.local/share/fnm" ] ; then
 fi
 
 # BUN
-if [ -s "$HOME/.bun/_bun" ] ; then
+if [ -d "$HOME/.bun" ] ; then
   # if not running bash
   if [ ! -n "$BASH_VERSION" ]; then
     # bun completions
