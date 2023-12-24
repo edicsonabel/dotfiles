@@ -12,7 +12,7 @@
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
-      . "$HOME/.bashrc"
+      . $HOME/.bashrc
     fi
   fi
 
@@ -22,12 +22,12 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 if [ -d "$HOME/.local/bin" ] ; then
-  PATH="$HOME/.local/bin:$PATH"
+  PATH=$HOME/.local/bin:$PATH
 fi
 
 # YARN
 if [ -d "$HOME/.yarn/bin" ] ; then
-  PATH="$HOME/.yarn/bin:$PATH"
+  PATH=$HOME/.yarn/bin:$PATH
 fi
 
 # GO
@@ -36,7 +36,7 @@ if [ -d "$HOME/go" ] ; then
   export GOBIN=$GOPATH/bin
   # export GOROOT=/usr/bin/go
   # export GOROOT=/usr/local/go
-  PATH=$PATH:$GOBIN
+  PATH=$GOBIN:$PATH
 fi
 
 # FNM
@@ -44,6 +44,16 @@ if [ -d "$HOME/.local/share/fnm" ] ; then
   PATH="$HOME/.local/share/fnm:$PATH"
   eval "`fnm env`"
 fi
+
+# BUN
+if [ -s "$HOME/.bun/_bun" ] ; then
+  # bun completions
+  source "$HOME/.bun/_bun"
+  export BUN_INSTALL="$HOME/.bun"
+  PATH=$BUN_INSTALL/bin:$PATH
+fi
+
+
 
 if [ -d "/usr/lib/jvm/jdk1.8.0_231" ] ; then
   PATH="/usr/lib/jvm/jdk1.8.0_231/bin:$PATH"
@@ -96,6 +106,14 @@ alias pnu='pnpm up'
 alias pns='pnpm start'
 alias pninit='pnpm init'
 alias pnrun='pnpm run'
+# BUN
+alias ba='bun add'
+alias bi='bun install'
+alias br='bun remove'
+alias bu='bun update'
+alias bs='bun start'
+alias binit='bun init'
+alias brun='bun run'
 # Personal
 alias ea='/run/media/edicsonabel/EdicsonAbel/'
 alias projects='/run/media/edicsonabel/EdicsonAbel/Proyectos/'
