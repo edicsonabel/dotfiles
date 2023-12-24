@@ -10,11 +10,11 @@
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-      . $HOME/.bashrc
-    fi
+  # include .bashrc if it exists
+  if [ -f "$HOME/.bashrc" ]; then
+    . "$HOME/.bashrc"
   fi
+fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
@@ -22,21 +22,21 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 if [ -d "$HOME/.local/bin" ] ; then
-  PATH=$HOME/.local/bin:$PATH
+  PATH="$HOME/.local/bin:$PATH"
 fi
 
 # YARN
 if [ -d "$HOME/.yarn/bin" ] ; then
-  PATH=$HOME/.yarn/bin:$PATH
+  PATH="$HOME/.yarn/bin:$PATH"
 fi
 
 # GO
 if [ -d "$HOME/go" ] ; then
-  export GOPATH=$HOME/go
-  export GOBIN=$GOPATH/bin
-  # export GOROOT=/usr/bin/go
-  # export GOROOT=/usr/local/go
-  PATH=$GOBIN:$PATH
+  export GOPATH="$HOME/go"
+  export GOBIN="$GOPATH/bin"
+  # export GOROOT="/usr/bin/go"
+  # export GOROOT="/usr/local/go"
+  PATH="$GOBIN:$PATH"
 fi
 
 # FNM
@@ -47,22 +47,21 @@ fi
 
 # BUN
 if [ -s "$HOME/.bun/_bun" ] ; then
-  # bun completions
-  source "$HOME/.bun/_bun"
+  # if not running bash
+  if [ ! -n "$BASH_VERSION" ]; then
+    # bun completions
+    source "$HOME/.bun/_bun"
+  fi
   export BUN_INSTALL="$HOME/.bun"
-  PATH=$BUN_INSTALL/bin:$PATH
+  PATH="$BUN_INSTALL/bin:$PATH"
 fi
 
-
-
-if [ -d "/usr/lib/jvm/jdk1.8.0_231" ] ; then
-  PATH="/usr/lib/jvm/jdk1.8.0_231/bin:$PATH"
-fi
-
+# Microsoft SQL Server
 if [ -d "/opt/mssql" ] ; then
   PATH="/opt/mssql/bin:$PATH"
 fi
 
+# Microsoft SQL Server Tools
 if [ -d "/opt/mssql-tools" ] ; then
   PATH="/opt/mssql-tools/bin:$PATH"
 fi
