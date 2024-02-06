@@ -1,0 +1,175 @@
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.bright]
+black = "0x424242"
+blue = "0x1E8EFF"
+cyan = "0x1EFF8E"
+green = "0x8EFF1E"
+magenta = "0x8E1EFF"
+red = "0xFF1E8E"
+white = "0xC2C2C2"
+yellow = "0xFF8E1E"
+
+[colors.normal]
+black = "0x363636"
+blue = "0x0883FF"
+cyan = "0x08FF83"
+green = "0x83FF08"
+magenta = "0x8308FF"
+red = "0xFF0883"
+white = "0xB6B6B6"
+yellow = "0xFF8308"
+
+[colors.primary]
+background = "0x0D1926"
+foreground = "0xB4E1FD"
+
+[colors.selection]
+text = "0xB4E1FD"
+
+[cursor]
+blink_interval = 500
+
+[cursor.style]
+blinking = "Always"
+shape = "Underline"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 12.0
+
+[font.bold]
+family = "Bitstream Vera Sans Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "Bitstream Vera Sans Mono"
+style = "Bold Italic"
+
+[font.italic]
+family = "Bitstream Vera Sans Mono"
+style = "Italic"
+
+[font.normal]
+family = "Bitstream Vera Sans Mono"
+style = "Regular"
+
+[font.offset]
+x = -1
+y = 3
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "PasteSelection"
+key = "Insert"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "ResetFontSize"
+key = "Key0"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Equals"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Plus"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Minus"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ToggleFullscreen"
+key = "F11"
+mods = "None"
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "Paste"
+mods = "None"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "Copy"
+mods = "None"
+
+[[keyboard.bindings]]
+action = "ClearLogNotice"
+key = "L"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\f"
+key = "L"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ScrollPageUp"
+key = "PageUp"
+mode = "~Alt"
+mods = "None"
+
+[[keyboard.bindings]]
+action = "ScrollPageDown"
+key = "PageDown"
+mode = "~Alt"
+mods = "None"
+
+[[keyboard.bindings]]
+action = "ScrollToTop"
+key = "Home"
+mode = "~Alt"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "ScrollToBottom"
+key = "End"
+mode = "~Alt"
+mods = "Shift"
+
+[scrolling]
+history = 5000
+
+[shell]
+args = ["-l", "-c", "$(tmux new-window > /dev/null 2>&1 || tmux new -s 🚀 > /dev/null 2>&1) && tmux attach -t 🚀 > /dev/null 2>&1"]
+program = "/bin/zsh"
+
+[window]
+decorations = "None"
+dynamic_padding = false
+opacity = 0.85
+title = "Alacritty"
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.dimensions]
+columns = 173
+lines = 45
+
+[window.padding]
+x = 6
+y = 6
+
+[window.position]
+x = 0
+y = 0

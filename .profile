@@ -42,7 +42,7 @@ fi
 # FNM
 if [ -d "$HOME/.local/share/fnm" ] ; then
   PATH="$HOME/.local/share/fnm:$PATH"
-  eval "`fnm env`"
+  eval "`fnm env --use-on-cd`"
 fi
 
 # BUN
