@@ -75,6 +75,15 @@ function pns { & pnpm start $args }
 function pninit { & pnpm init $args }
 function pnrun { & pnpm run $args }
 
+<# BUN aliases #>
+function ba { & bun add $args }
+function bi { & bun install $args }
+function br { & bun remove $args }
+function bu { & bun update $args }
+function bs { & bun start $args }
+function binit { & bun init $args }
+function brun { & bun run $args }
+
 <# Customized aliases #>
 function cleanHistory { 
   [Microsoft.PowerShell.PSConsoleReadLine]::ClearHistory()
