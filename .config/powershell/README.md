@@ -15,21 +15,24 @@ winget install -e --id Microsoft.PowerShell
 # Visual Studio Code
 winget install Microsoft.VisualStudioCode --override "/SILENT /mergetasks=!runcode,addcontextmenufiles,addcontextmenufolders"
 
-# RevoUninstaller
-winget install -e --id RevoUninstaller.RevoUninstaller
+# VLC
+winget install -e --id VideoLAN.VLC
 
 # GIMP
 winget install -e --id GIMP.GIMP
 
-# VLC
-winget install -e --id VideoLAN.VLC
+# RevoUninstaller
+winget install -e --id RevoUninstaller.RevoUninstaller
 ```
 
 ## Add GIT programs to PATH
-We open the environment variables UI with the command `rundll32 sysdm.cpl,EditEnvironmentVariables` to add the Git programs
+We open the environment variables UI with the command `rundll32 sysdm.cpl,EditEnvironmentVariables` to add the Git programs to the user Path
 ```
-# Path's to add
+# Add this path if you are an administrator
 C:\Program Files\Git\usr\bin
+
+# Add this path if you are NOT an administrator
+C:\Users\<YOUR USER NAME>\AppData\Local\Programs\Git\usr\bin
 ```
 
 ## Install Nerd Fonts
@@ -101,7 +104,7 @@ We open the windows terminal settings and look for the option **Open JSON file**
 irm get.scoop.sh | iex
 
 # Installation of external programs
-scoop install fnm sudo bat lsd neovim fzf which ntop
+scoop install fnm sudo bat lsd neovim fzf which ntop bun
 
 # Oh My Posh
 winget install -e --id JanDeDobbeleer.OhMyPosh
@@ -119,7 +122,7 @@ Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -Skip
 Install-Module -Name PSFzf -Scope CurrentUser -Force
 
 # Z
-sudo Install-Module -Name z -Force
+Install-Module -Name z -Force
 
 # Go to the user's home folder
 cd
