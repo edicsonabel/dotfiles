@@ -24,7 +24,7 @@ $PROMPT_CONFIG = Join-Path (Get-ScriptDirectory) 'edicsonabel.omp.json'
 oh-my-posh --init --shell pwsh --config $PROMPT_CONFIG | Invoke-Expression
 
 <# FNM #>
-fnm env --use-on-cd | Out-String | Invoke-Expression
+fnm env --use-on-cd --shell power-shell | Out-String | Invoke-Expression
 
 <# Plugin #>
 . (Join-Path (Get-ScriptDirectory) "plugins\git.plugin.ps1")
@@ -108,4 +108,4 @@ Set-Alias cat bat
 # Set-Alias ls lsd
 
 <# Clear terminal #>
-cls
+# cls
