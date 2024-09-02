@@ -30,11 +30,14 @@ fnm env --use-on-cd --shell power-shell | Out-String | Invoke-Expression
 . (Join-Path (Get-ScriptDirectory) "plugins\git.plugin.ps1")
 
 <# Linux aliases #>
-function gitDir { $gitDir=$(which git).Replace('\cmd\git.EXE', '').Replace('\cmd\git.exe', ''); echo "$gitDir\usr\bin" }
+function gitDir { $gitDir=$(which git).Replace('\cmd\git.EXE', '').Replace('\cmd\git.exe', ''); echo.exe "$gitDir\usr\bin" }
 function diffGit { & "$(gitDir)\diff.exe" $args}
 del alias:diff -Force
 Set-Alias diff diffGit
-function echoGit { & echo.exe $args} # don't add $(gitDir)
+function rmGit { & "$(gitDir)\rm.exe" $args}
+del alias:rm -Force
+Set-Alias rm rmGit
+function echoGit { & "$(gitDir)\echo.exe" $args}
 del alias:echo -Force
 Set-Alias echo echoGit
 function findGit { & "$(gitDir)\find.exe" $args}
