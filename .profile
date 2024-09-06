@@ -56,6 +56,11 @@ if [ -d "$HOME/.bun" ] ; then
   PATH="$BUN_INSTALL/bin:$PATH"
 fi
 
+# CONSOLE NINJA
+if [ -d "$HOME/.console-ninja" ] ; then
+  PATH="$HOME/.console-ninja/.bin:$PATH"
+fi
+
 # Microsoft SQL Server
 if [ -d "/opt/mssql" ] ; then
   PATH="/opt/mssql/bin:$PATH"
