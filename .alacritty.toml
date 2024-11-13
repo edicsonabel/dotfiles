@@ -148,7 +148,7 @@ mods = "Shift"
 [scrolling]
 history = 5000
 
-[shell]
+[terminal.shell]
 args = ["-l", "-c", "$(tmux new-window > /dev/null 2>&1 || tmux new -s 🚀 > /dev/null 2>&1) && tmux attach -t 🚀 > /dev/null 2>&1"]
 program = "/bin/zsh"
 
@@ -173,3 +173,5 @@ y = 6
 [window.position]
 x = 0
 y = 0
+
+[terminal]
