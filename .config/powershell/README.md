@@ -7,7 +7,7 @@ winget install -e --id Brave.Brave
 winget install -e --id 7zip.7zip
 
 # Git
-winget install -e --id Git.Git
+winget install -e --id Git.Git --override '/SILENT /mergetasks="!runcode,gitbashhere,gitguihere"'
 
 # PowerShell
 winget install -e --id Microsoft.PowerShell
