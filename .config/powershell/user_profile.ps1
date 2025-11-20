@@ -92,6 +92,9 @@ function cleanHistory {
   [Microsoft.PowerShell.PSConsoleReadLine]::ClearHistory()
   rm (Get-PSReadlineOption).HistorySavePath
 }
+function editHistory { 
+  & vim (Get-PSReadlineOption).HistorySavePath
+}
 function PSHistory { 
   if($args -contains '-c'){
     & cleanHistory
