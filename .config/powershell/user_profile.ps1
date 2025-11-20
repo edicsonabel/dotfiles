@@ -92,8 +92,20 @@ function cleanHistory {
   [Microsoft.PowerShell.PSConsoleReadLine]::ClearHistory()
   rm (Get-PSReadlineOption).HistorySavePath
 }
+function refreshHistory {
+  $file_original = (Join-Path $Env:USERPROFILE "history_original.txt")
+  & "$(gitDir)\cp.exe" (Get-PSReadlineOption).HistorySavePath $file_original
+
+  $commandsFromFile = Get-Content -Path $file_original
+  [Microsoft.PowerShell.PSConsoleReadLine]::ClearHistory()
+  foreach ($txtLine in $commandsFromFile) {
+    [Microsoft.PowerShell.PSConsoleReadLine]::AddToHistory($txtLine)
+  }
+  & "$(gitDir)\cp.exe" $file_original (Get-PSReadlineOption).HistorySavePath
+  & "$(gitDir)\rm.exe" $file_original
+}
 function editHistory { 
-  & vim (Get-PSReadlineOption).HistorySavePath
+  & vim (Get-PSReadlineOption).HistorySavePath && refreshHistory
 }
 function PSHistory { 
   if($args -contains '-c'){
