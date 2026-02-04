@@ -71,6 +71,24 @@ if [ -d "/opt/mssql-tools" ] ; then
   PATH="/opt/mssql-tools/bin:$PATH"
 fi
 
+# SSH Agent
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    eval "$(ssh-agent -s)" >/dev/null 2>&1;
+    # Add all private keys in ~/.ssh named id_* (skip public keys)
+    if command -v ssh-add >/dev/null 2>&1; then
+      for f in "$HOME"/.ssh/id_*; do
+        [ -e "$f" ] || continue
+        case "$f" in
+          *.pub) continue ;;
+        esac
+        if [ -f "$f" ]; then
+          ssh-add "$f" 2>/dev/null || true
+        fi
+      done
+    fi
+fi
+
+
 # iBus
 # export GTK_IM_MODULE=ibus
 # export XMODIFIERS=@im=ibus
@@ -122,7 +140,7 @@ alias brun='bun run'
 alias ea='/run/media/edicsonabel/EdicsonAbel/'
 alias projects='/run/media/edicsonabel/EdicsonAbel/Proyectos/'
 alias cat='bat'
-alias vim='nvim && rc'
+alias vim='nvim'
 # set default EDITOR and VISUAL (vim or nano)
 if [ -z "$(which nvim)" ]; then
   export EDITOR="nano"
