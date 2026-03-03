@@ -71,6 +71,11 @@ if [ -d "/opt/mssql-tools" ] ; then
   PATH="/opt/mssql-tools/bin:$PATH"
 fi
 
+# .NET
+if [ -d "$HOME/.dotnet/tools" ] ; then
+  PATH="$HOME/.dotnet/tools:$PATH"
+fi
+
 # SSH Agent
 if [ -z "$SSH_AUTH_SOCK" ]; then
     eval "$(ssh-agent -s)" >/dev/null 2>&1;
