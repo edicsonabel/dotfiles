@@ -30,12 +30,15 @@ if [ -d "$HOME/.yarn/bin" ] ; then
   PATH="$HOME/.yarn/bin:$PATH"
 fi
 
+# PNPM
+if [ -d "$HOME/.local/share/pnpm" ] ; then
+  PATH="$HOME/.local/share/pnpm:$PATH"
+fi
+
 # GO
 if [ -d "$HOME/go" ] ; then
   export GOPATH="$HOME/go"
   export GOBIN="$GOPATH/bin"
-  # export GOROOT="/usr/bin/go"
-  # export GOROOT="/usr/local/go"
   PATH="$GOBIN:$PATH"
 fi
 
@@ -74,6 +77,11 @@ fi
 # .NET
 if [ -d "$HOME/.dotnet/tools" ] ; then
   PATH="$HOME/.dotnet/tools:$PATH"
+fi
+
+# OPENCODE
+if [ -d "$HOME/.opencode/bin" ] ; then
+  PATH="$HOME/.opencode/bin:$PATH"
 fi
 
 # SSH Agent
