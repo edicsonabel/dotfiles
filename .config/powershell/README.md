@@ -130,9 +130,25 @@ cd
 # We clone the dotfiles
 git clone https://github.com/edicsonabel/dotfiles.git --depth=1
 
-# Copy `.gitconfig` to home
-cp .\dotfiles\.gitconfig
-
 # Set custom startup in PowerShell
 echo '. $env:USERPROFILE\dotfiles\.config\powershell\user_profile.ps1' > $PROFILE.CurrentUserCurrentHost
+
+# Copy `.gitconfig` to home
+Copy-Item -Path "$env:USERPROFILE\dotfiles\.gitconfig" -Destination "$env:USERPROFILE\.gitconfig" -Force
+
+# Copy nvim config
+Copy-Item -Path "$env:USERPROFILE\dotfiles\.config\nvim" -Destination "$env:LOCALAPPDATA\nvim" -Recurse -Force
+```
+
+## If you are an administrator (PowerShell as Administrator)
+```ps
+# Go to home
+cd
+
+# SymbolicLink `.gitconfig` to home
+New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.gitconfig" -Target "$env:USERPROFILE\dotfiles\.gitconfig" -Force
+
+# SymbolicLink `nvim` config
+Remove-Item "$env:LOCALAPPDATA\nvim" -Recurse -Force
+New-Item -ItemType SymbolicLink -Path "$env:LOCALAPPDATA\nvim" -Target "$env:USERPROFILE\dotfiles\.config\nvim"
 ```
