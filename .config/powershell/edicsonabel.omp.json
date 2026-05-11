@@ -10,7 +10,7 @@
             "cache_duration": "none"
           },
           "leading_diamond": "\u256d\u2500\ue0b6",
-          "template": "\uf120 edicsonabel ",
+          "template": "\uf120 {{ .UserName }} ",
           "foreground": "white",
           "background": "darkGray",
           "type": "text",
@@ -271,9 +271,7 @@
           "foreground": "white",
           "type": "exit",
           "style": "plain",
-          "foreground_templates": [
-            "{{ if gt .Code 0 }}red{{ end }}"
-          ]
+          "foreground_templates": ["{{ if gt .Code 0 }}red{{ end }}"]
         }
       ],
       "newline": true
