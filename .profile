@@ -84,6 +84,11 @@ if [ -d "$HOME/.opencode/bin" ] ; then
   PATH="$HOME/.opencode/bin:$PATH"
 fi
 
+# Rust / Cargo
+if [ -d "$HOME/.cargo/bin" ] ; then
+  PATH="$HOME/.cargo/bin:$PATH"
+fi
+
 # SSH Agent
 if [ -z "$SSH_AUTH_SOCK" ]; then
     eval "$(ssh-agent -s)" >/dev/null 2>&1;
