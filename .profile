@@ -180,3 +180,12 @@ else
 fi
 
 export VISUAL="nano"
+
+# Auto-attach to tmux on interactive terminal (bash + zsh)
+case $- in
+  *i*)
+    if command -v tmux >/dev/null 2>&1 && [ -t 1 ] && [ -z "$TMUX" ]; then
+      tmux attach-session -t 0 2>/dev/null || tmux new-session -s 0
+    fi
+    ;;
+esac
