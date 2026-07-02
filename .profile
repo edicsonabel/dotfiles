@@ -119,10 +119,11 @@ if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init $CURRENT_SHELL)"
 fi
 
-# iBus
-# export GTK_IM_MODULE=ibus
-# export XMODIFIERS=@im=ibus
-# export QT_IM_MODULE=ibus
+# iBus / fcitx5 disabled — using Cinnamon native layout switch
+unset GTK_IM_MODULE
+unset XMODIFIERS
+unset QT_IM_MODULE
+unset QT_IM_MODULES
 
 # setxkbmap -model pc105 -layout latam
 # setxkbmap -model pc105 -layout us -variant intl
