@@ -182,10 +182,18 @@ fi
 export VISUAL="nano"
 
 # Auto-attach to tmux on interactive terminal (bash + zsh)
+# When the server is already up, attach to its most recent session (e.g. one
+# restored by tmux-continuum). When it is down (after reboot), create the
+# first session: loading tmux.conf triggers continuum-restore in the
+# background, which brings back the previous sessions in the same server.
 case $- in
   *i*)
     if command -v tmux >/dev/null 2>&1 && [ -t 1 ] && [ -z "$TMUX" ]; then
-      tmux attach-session -t 0 2>/dev/null || tmux new-session -s 0
+      if tmux list-sessions >/dev/null 2>&1; then
+        tmux attach-session
+      else
+        tmux new-session
+      fi
     fi
     ;;
 esac
