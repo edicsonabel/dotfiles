@@ -16,77 +16,26 @@ if [ -n "$BASH_VERSION" ]; then
   fi
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-  PATH="$HOME/bin:$PATH"
+# PATH and exported variables live in ~/.env.sh, which is side-effect free so
+# that non-interactive shells can read it too (zsh does, via ~/.zshenv).
+# Sourcing it twice is harmless — it skips PATH entries already present.
+# This file keeps the interactive-only setup: shell hooks, aliases, ssh-agent,
+# tmux.
+if [ -f "$HOME/.env.sh" ] ; then
+  . "$HOME/.env.sh"
 fi
 
-if [ -d "$HOME/.local/bin" ] ; then
-  PATH="$HOME/.local/bin:$PATH"
-fi
-
-# YARN
-if [ -d "$HOME/.yarn/bin" ] ; then
-  PATH="$HOME/.yarn/bin:$PATH"
-fi
-
-# PNPM
-if [ -d "$HOME/.local/share/pnpm" ] ; then
-  PATH="$HOME/.local/share/pnpm:$PATH"
-fi
-
-# GO
-if [ -d "$HOME/go" ] ; then
-  export GOPATH="$HOME/go"
-  export GOBIN="$GOPATH/bin"
-  PATH="$GOBIN:$PATH"
-fi
-
-# FNM
-if [ -d "$HOME/.local/share/fnm" ] ; then
-  PATH="$HOME/.local/share/fnm:$PATH"
+# FNM — installs a chdir hook; PATH is set in ~/.env.sh
+if command -v fnm >/dev/null 2>&1 ; then
   eval "`fnm env --use-on-cd`"
 fi
 
-# BUN
+# BUN completions — BUN_INSTALL and PATH are set in ~/.env.sh
 if [ -d "$HOME/.bun" ] ; then
   # if not running bash
   if [ ! -n "$BASH_VERSION" ]; then
-    # bun completions
     source "$HOME/.bun/_bun"
   fi
-  export BUN_INSTALL="$HOME/.bun"
-  PATH="$BUN_INSTALL/bin:$PATH"
-fi
-
-# CONSOLE NINJA
-if [ -d "$HOME/.console-ninja" ] ; then
-  PATH="$HOME/.console-ninja/.bin:$PATH"
-fi
-
-# Microsoft SQL Server
-if [ -d "/opt/mssql" ] ; then
-  PATH="/opt/mssql/bin:$PATH"
-fi
-
-# Microsoft SQL Server Tools
-if [ -d "/opt/mssql-tools" ] ; then
-  PATH="/opt/mssql-tools/bin:$PATH"
-fi
-
-# .NET
-if [ -d "$HOME/.dotnet/tools" ] ; then
-  PATH="$HOME/.dotnet/tools:$PATH"
-fi
-
-# OPENCODE
-if [ -d "$HOME/.opencode/bin" ] ; then
-  PATH="$HOME/.opencode/bin:$PATH"
-fi
-
-# Rust / Cargo
-if [ -d "$HOME/.cargo/bin" ] ; then
-  PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 # SSH Agent
@@ -118,12 +67,6 @@ fi
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init $CURRENT_SHELL)"
 fi
-
-# iBus / fcitx5 disabled — using Cinnamon native layout switch
-unset GTK_IM_MODULE
-unset XMODIFIERS
-unset QT_IM_MODULE
-unset QT_IM_MODULES
 
 # setxkbmap -model pc105 -layout latam
 # setxkbmap -model pc105 -layout us -variant intl
@@ -172,14 +115,8 @@ alias ea='/run/media/edicsonabel/EdicsonAbel/'
 alias projects='/run/media/edicsonabel/EdicsonAbel/Proyectos/'
 alias cat='bat'
 alias vim='nvim'
-# set default EDITOR and VISUAL (vim or nano)
-if [ -z "$(which nvim)" ]; then
-  export EDITOR="nano"
-else
-  export EDITOR="nvim"
-fi
 
-export VISUAL="nano"
+# EDITOR and VISUAL are set in ~/.env.sh
 
 # Auto-attach to tmux on interactive terminal (bash + zsh)
 # When the server is already up, attach to its most recent session (e.g. one
