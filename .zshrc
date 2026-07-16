@@ -473,3 +473,5 @@ build_prompt() {
 PROMPT='%{%f%b%k%}$(build_prompt) '
 
 source ~/.profile
+
+[[ -f ~/.config/zsh/yay-electron-guard.zsh ]] && source ~/.config/zsh/yay-electron-guard.zsh
