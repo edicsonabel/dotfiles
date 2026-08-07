@@ -1,0 +1,10 @@
+[Unit]
+Description=Watch herdr binary and re-apply sidebar separator patch after updates
+ConditionPathExists=%h/.local/bin/herdr
+
+[Path]
+PathModified=%h/.local/bin/herdr
+Unit=herdr-patch.service
+
+[Install]
+WantedBy=default.target

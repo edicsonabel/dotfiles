@@ -1,0 +1,6 @@
+[Unit]
+Description=Re-apply herdr sidebar separator patch (space+ZWSP instead of dots)
+
+[Service]
+Type=oneshot
+ExecStart=%h/.config/herdr/herdr-patch-separator

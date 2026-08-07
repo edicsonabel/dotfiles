@@ -1,0 +1,13 @@
+[Unit]
+Description=Feed battery/clock sidebar tokens to herdr workspaces
+
+[Service]
+ExecStart=%h/.config/herdr/herdr-statusbar
+# always, not on-failure: killing the herdr server (e.g. to run `herdr update`)
+# TERMs this loop too, which systemd counts as a clean exit -- the sidebar then
+# stays empty until started by hand. The script no-ops when no server is up.
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
