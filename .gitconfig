@@ -14,3 +14,10 @@
 	ff = only
 [safe]
 	directory = *
+# Machine-local settings: credential helpers, work hosts, anything gh or Git
+# Credential Manager writes on its own. ~/.gitconfig is a symlink into this
+# repo, so `git config --global` lands here -- keep such settings in the
+# included file to leave the repo clean. Last include wins, so it can also
+# override anything above.
+[include]
+	path = ~/.gitconfig.local
