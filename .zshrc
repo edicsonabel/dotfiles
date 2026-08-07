@@ -84,6 +84,9 @@ plugins=(
   zsh-syntax-highlighting
   )
 
+# User completions (e.g. _herdr) — must be in fpath before omz runs compinit
+fpath=(~/.local/share/zsh/site-functions $fpath)
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration

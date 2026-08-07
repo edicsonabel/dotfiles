@@ -62,7 +62,9 @@ y = 3
 history = 5000
 
 [terminal]
-shell = { program = "/usr/bin/tmux", args = ["new-session", "-A", "-s", "🚀"] }
+# Multiplexer auto-attach now handled by TERMINAL_MUX toggle in ~/.profile
+# (herdr trial). Restore this line to go back to launching tmux directly:
+# shell = { program = "/usr/bin/tmux", args = ["new-session", "-A", "-s", "🚀"] }
 
 [window]
 decorations = "None"

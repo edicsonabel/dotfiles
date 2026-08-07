@@ -118,14 +118,22 @@ alias vim='nvim'
 
 # EDITOR and VISUAL are set in ~/.env.sh
 
-# Auto-attach to tmux on interactive terminal (bash + zsh)
-# When the server is already up, attach to its most recent session (e.g. one
-# restored by tmux-continuum). When it is down (after reboot), create the
+# Auto-attach multiplexer on interactive terminal (bash + zsh)
+# TERMINAL_MUX selects which one: "herdr" (trial) or "tmux" (previous default).
+# tmux: when the server is already up, attach to its most recent session (e.g.
+# one restored by tmux-continuum). When it is down (after reboot), create the
 # first session: loading tmux.conf triggers continuum-restore in the
 # background, which brings back the previous sessions in the same server.
+# herdr: `herdr` launches or attaches to its persistent session; skip when
+# already inside a herdr pane (HERDR_ENV) or a tmux pane ($TMUX).
+TERMINAL_MUX=herdr
 case $- in
   *i*)
-    if command -v tmux >/dev/null 2>&1 && [ -t 1 ] && [ -z "$TMUX" ]; then
+    if [ "$TERMINAL_MUX" = herdr ] && command -v herdr >/dev/null 2>&1; then
+      if [ -t 1 ] && [ -z "$HERDR_ENV" ] && [ -z "$TMUX" ]; then
+        herdr
+      fi
+    elif command -v tmux >/dev/null 2>&1 && [ -t 1 ] && [ -z "$TMUX" ]; then
       if tmux list-sessions >/dev/null 2>&1; then
         tmux attach-session
       else
