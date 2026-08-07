@@ -1,0 +1,201 @@
+#!/usr/bin/env bash
+# herdr-statusbar: feeds battery/clock/date/git sidebar tokens to herdr
+# workspaces. Colors live in config.toml ([ui.sidebar.spaces] rows, static hex);
+# icons are the variables below. No terminal/palette dependency.
+# Event-driven: a socket subscription to workspace.focused triggers an instant
+# update on space switch; a 10s tick keeps clock/battery fresh.
+# Run by herdr-statusbar.service (systemd --user); safe to run before the
+# herdr server is up — it just retries on the next tick.
+set -u
+
+# systemd --user starts this before the login shell imports its environment,
+# so herdr (~/.local/bin) may be missing from PATH.
+export PATH="$HOME/.local/bin:$PATH"
+
+BAT=/sys/class/power_supply/BAT0
+HERDR_SOCK="$HOME/.config/herdr/herdr.sock"
+FIFO="${XDG_RUNTIME_DIR:-/tmp}/herdr-statusbar.fifo"
+REPOS_SEEN="${XDG_RUNTIME_DIR:-/tmp}/herdr-statusbar.repos"
+# Background `git fetch` interval (seconds) so ⇣ (pull needed) stays accurate.
+# Set HERDR_STATUSBAR_FETCH=0 in the service environment to disable.
+FETCH_INTERVAL="${HERDR_STATUSBAR_FETCH:-900}"
+
+# Nerd Font icons (rendered via Symbols Nerd Font fontconfig fallback).
+ICON_BAT_FULL=$''   # battery full
+ICON_BAT_HALF=$''   # battery half
+ICON_BAT_LOW=$''    # battery quarter
+ICON_BOLT=$'󱐋'       # charging
+ICON_CLOCK=$''
+ICON_CAL=$''
+ICON_BRANCH=$''     # powerline git branch (project space = repo directo)
+ICON_REPO=$'󰷏'      # nf-md-folder-open-outline: lineas de proyecto en spaces raiz
+
+# "ahead behind" vs upstream for one repo; "0 0" = in sync (or no upstream).
+# behind accuracy depends on the last fetch (see fetch_loop).
+repo_sync_counts() { # $1 = repo toplevel
+  local counts behind ahead
+  counts=$(git -C "$1" rev-list --left-right --count '@{upstream}...HEAD' 2>/dev/null) \
+    || { printf '0 0'; return; }
+  read -r behind ahead <<<"$counts"
+  printf '%s %s' "${ahead:-0}" "${behind:-0}"
+}
+
+# Per-project sidebar slots (rows defined in config.toml). Each slot is one
+# line: git{i}_name (plain) + git{i}_push (green) + git{i}_pull (red).
+# Herdr draws a fixed "·" between visible same-row tokens; unavoidable when
+# mixing colors, since token values are plain text (no inline ANSI).
+MAX_PROJ=4
+
+clear_proj_slots() { # $1 = first slot to clear (1-based)
+  local i
+  for ((i = $1; i <= MAX_PROJ; i++)); do
+    GIT_ARGS+=(--clear-token "git${i}_name" --clear-token "git${i}_push" --clear-token "git${i}_pull")
+  done
+}
+
+# $git: one token replacing the built-in branch token (which always gets
+# herdr's "·" separator before it). Two shapes:
+#  - first pane cwd IS a repo  -> "<icon> <branch>" (project space, as before)
+#  - first pane cwd is NOT a repo (workspace-root space) -> scan every pane
+#    cwd, dedupe by git toplevel, one git{i}_* slot (own sidebar line) per
+#    repo needing sync, labeled by the tab that holds the project (dir name
+#    as fallback): " Frontend ⇣3".
+# Sets GIT_ARGS for report-metadata; appends repo paths to $REPOS_SEEN.tmp
+# so fetch_loop knows what to fetch.
+set_git_args() { # $1 = workspace_id
+  local lines first br
+  # One "cwd<TAB>tab-label" line per pane, in pane order.
+  mapfile -t lines < <(jq -r --arg w "$1" '
+    .result.snapshot as $s | $s.panes[]
+    | select(.pane_id | startswith($w + ":"))
+    | [(.cwd // ""), (.tab_id as $t | ([$s.tabs[] | select(.tab_id == $t) | .label] | first) // "")]
+    | @tsv' <<<"$snap" 2>/dev/null)
+  first=${lines[0]%%$'\t'*}
+  br=''
+  [ -n "$first" ] && br=$(git -C "$first" branch --show-current 2>/dev/null)
+  if [ -n "$br" ]; then
+    GIT_ARGS=(--token "git=$ICON_BRANCH $br")
+    clear_proj_slots 1
+    git -C "$first" rev-parse --show-toplevel 2>/dev/null >>"$REPOS_SEEN.tmp"
+    return
+  fi
+  local -A seen=()
+  local line cwd label top ahead behind idx=0
+  GIT_ARGS=(--clear-token git)
+  for line in "${lines[@]}"; do
+    cwd=${line%%$'\t'*}
+    label=${line#*$'\t'}
+    [ -n "$cwd" ] || continue
+    top=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null) || continue
+    [ -n "${seen[$top]:-}" ] && continue
+    seen[$top]=1
+    printf '%s\n' "$top" >>"$REPOS_SEEN.tmp"
+    read -r ahead behind <<<"$(repo_sync_counts "$top")"
+    { [ "$ahead" -gt 0 ] || [ "$behind" -gt 0 ]; } || continue
+    [ "$idx" -ge "$MAX_PROJ" ] && continue
+    idx=$((idx + 1))
+    GIT_ARGS+=(--token "git${idx}_name=$ICON_REPO ${label:-${top##*/}}")
+    if [ "$ahead" -gt 0 ]; then GIT_ARGS+=(--token "git${idx}_push=⇡$ahead")
+    else GIT_ARGS+=(--clear-token "git${idx}_push"); fi
+    if [ "$behind" -gt 0 ]; then GIT_ARGS+=(--token "git${idx}_pull=⇣$behind")
+    else GIT_ARGS+=(--clear-token "git${idx}_pull"); fi
+  done
+  clear_proj_slots $((idx + 1))
+}
+
+# One full token refresh. Tokens only on the focused workspace so the sidebar
+# shows one clock/battery block (tmux-style), not one per space.
+tick() {
+  local list snap focused others cap status bat_token bat_icon clock date_text id
+  list=$(herdr workspace list 2>/dev/null)
+  snap=$(herdr api snapshot 2>/dev/null)
+  [ -n "${list:-}" ] || return 0
+  : >"$REPOS_SEEN.tmp"
+  focused=$(jq -r '.result.workspaces[] | select(.focused) | .workspace_id' <<<"$list" 2>/dev/null)
+  others=$(jq -r '.result.workspaces[] | select(.focused | not) | .workspace_id' <<<"$list" 2>/dev/null)
+
+  cap=$(cat "$BAT/capacity" 2>/dev/null || echo '?')
+  status=$(cat "$BAT/status" 2>/dev/null || echo '')
+  # Conditional color via three tokens: only the matching level is reported,
+  # the rest are cleared; herdr hides empty tokens. Colors live in config.toml.
+  bat_token='bat_ok' bat_icon=$ICON_BAT_FULL
+  if [ "$cap" != '?' ]; then
+    if [ "$cap" -le 20 ]; then bat_token='bat_low' bat_icon=$ICON_BAT_LOW
+    elif [ "$cap" -lt 75 ]; then bat_token='bat_mid' bat_icon=$ICON_BAT_HALF; fi
+  fi
+  case $status in Charging) bat_token='bat_chg' bat_icon=$ICON_BOLT ;; esac
+  clock="$ICON_CLOCK $(date '+%I:%M %P')"
+  date_text="$ICON_CAL $(date '+%a %m/%d')"
+  # herdr caps report-metadata at 16 tokens per call -> git slots go separate.
+  if [ -n "$focused" ]; then
+    set_git_args "$focused"
+    herdr workspace report-metadata "$focused" --source statusbar \
+      --token "$bat_token=${bat_icon} ${cap}%" --token clock="$clock" --token date="$date_text" \
+      $(for t in bat_low bat_mid bat_ok bat_chg; do [ "$t" != "$bat_token" ] && printf -- '--clear-token %s ' "$t"; done) \
+      >/dev/null 2>&1
+    herdr workspace report-metadata "$focused" --source statusbar \
+      "${GIT_ARGS[@]}" >/dev/null 2>&1
+  fi
+  for id in $others; do
+    set_git_args "$id"
+    herdr workspace report-metadata "$id" --source statusbar \
+      --clear-token bat_low --clear-token bat_mid --clear-token bat_ok --clear-token bat_chg \
+      --clear-token clock --clear-token date >/dev/null 2>&1
+    herdr workspace report-metadata "$id" --source statusbar \
+      "${GIT_ARGS[@]}" >/dev/null 2>&1
+  done
+  sort -u "$REPOS_SEEN.tmp" >"$REPOS_SEEN" 2>/dev/null
+}
+
+# Periodic fetch of every repo currently visible in some space, so ⇣ (behind
+# upstream = pull needed) reflects the remote. Quiet, best-effort, bounded.
+fetch_loop() {
+  local r
+  while true; do
+    sleep "$FETCH_INTERVAL"
+    [ -s "$REPOS_SEEN" ] || continue
+    while IFS= read -r r; do
+      timeout 60 git -C "$r" fetch --quiet --no-recurse-submodules >/dev/null 2>&1
+    done <"$REPOS_SEEN"
+  done
+}
+
+# Background subscriber: one line to the FIFO per workspace focus change.
+# Reconnects if the herdr server restarts.
+focus_events() {
+  python3 - "$HERDR_SOCK" <<'PY'
+import socket, sys, time
+path = sys.argv[1]
+req = b'{"id":"sub","method":"events.subscribe","params":{"subscriptions":[{"type":"workspace.focused"}]}}\n'
+while True:
+    try:
+        s = socket.socket(socket.AF_UNIX)
+        s.connect(path)
+        s.sendall(req)
+        for line in s.makefile():
+            if '"workspace_focused"' in line:
+                print('x', flush=True)
+    except Exception:
+        pass
+    time.sleep(2)
+PY
+}
+
+rm -f "$FIFO"; mkfifo "$FIFO"
+focus_events >"$FIFO" &
+FOCUS_PID=$!
+FETCH_PID=''
+if [ "$FETCH_INTERVAL" -gt 0 ] 2>/dev/null; then
+  fetch_loop &
+  FETCH_PID=$!
+fi
+trap 'kill $FOCUS_PID $FETCH_PID 2>/dev/null; rm -f "$FIFO" "$REPOS_SEEN" "$REPOS_SEEN.tmp"' EXIT
+exec 3<>"$FIFO"
+
+while true; do
+  tick
+  # Wake early on a focus event, otherwise tick every 10s; drain queued events
+  # so rapid switching doesn't backlog.
+  read -t 10 -r -u 3 _ || true
+  while read -t 0.1 -r -u 3 _; do :; done
+done

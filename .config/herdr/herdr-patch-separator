@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+# herdr-patch-separator: re-apply the sidebar "·" separator patch after a
+# herdr update replaces the binary. The separator (" · " in
+# src/ui/sidebar/tokens.rs) is hardcoded; the patch swaps its bytes
+# (20 C2 B7 20) for space+ZWSP (20 E2 80 8B) so sidebar tokens join with a
+# single space. Only the sidebar/tab/pane occurrences are touched: they sit
+# in the string table next to their source paths, so we allowlist by nearby
+# path instead of blacklisting. That leaves the help bar, the release-notes
+# overlay, the menu row and the agent-detection regex manifest untouched.
+# Triggered by herdr-patch.path (systemd --user) watching
+# the binary; idempotent, so the rename we do here retriggering the unit is
+# harmless. After patching, asks the running server for a live handoff so
+# the patched binary takes over without killing panes.
+set -euo pipefail
+
+# ~/.local/bin is a symlink into the binaries dir; resolve it so backups,
+# the temp file, and the handoff all use the real location.
+BIN=$(readlink -f "$HOME/.local/bin/herdr")
+SOCK="$HOME/.config/herdr/herdr.sock"
+
+python3 - "$BIN" "$SOCK" <<'PY'
+import json, os, re, socket, subprocess, sys
+
+bin_path, sock_path = sys.argv[1], sys.argv[2]
+NEEDLE = b'\x20\xc2\xb7\x20'   # " · "
+REPL   = b'\x20\xe2\x80\x8b'   # space + zero-width space (same length)
+# Only patch separators that belong to the sidebar. Rust packs each string
+# literal near the source path it came from, so a nearby path is a reliable
+# and version-stable marker. Everything else -- the help bar ("prefix mode ·
+# ? shows keybinds"), the release-notes overlay ("wheel ↑↓ · esc / enter"),
+# the menu row ("● … · menu") and the agent-detection regex manifest -- keeps
+# its dots.
+SIDEBAR_PATHS = (b'src/ui/tabs.rs', b'src/ui/sidebar.rs', b'src/ui/mobile.rs',
+                 b'src/pane/terminal.rs', b'src/ui/settings.rs',
+                 b'src/ui/release_notes.rs')
+CTX = 160   # bytes scanned each side; wide enough to reach the path marker
+
+data = open(bin_path, 'rb').read()
+if data[:4] != b'\x7fELF':
+    sys.exit(f'{bin_path}: not an ELF binary, refusing')
+
+offsets = []
+for m in re.finditer(re.escape(NEEDLE), data):
+    ctx = data[max(0, m.start() - CTX):m.start() + CTX + 4]
+    if not any(path in ctx for path in SIDEBAR_PATHS):
+        continue
+    offsets.append(m.start())
+
+if not offsets:
+    print('herdr-patch-separator: nothing to patch (already patched or layout changed)')
+    sys.exit(0)
+
+version = subprocess.run([bin_path, '--version'], capture_output=True, text=True,
+                         timeout=15).stdout.split()[-1] or 'unknown'
+backup = os.path.join(os.path.dirname(bin_path), f'herdr.stock-{version}')
+if not os.path.exists(backup):
+    open(backup, 'wb').write(data)
+    os.chmod(backup, 0o755)
+
+patched = bytearray(data)
+for off in offsets:
+    patched[off:off + 4] = REPL
+tmp = bin_path + '.patched'
+open(tmp, 'wb').write(patched)
+os.chmod(tmp, 0o755)
+os.replace(tmp, bin_path)
+print(f'herdr-patch-separator: patched {len(offsets)} occurrence(s) in {version}, backup {backup}')
+
+if not os.path.exists(sock_path):
+    print('herdr-patch-separator: no server socket, handoff skipped')
+    sys.exit(0)
+try:
+    s = socket.socket(socket.AF_UNIX)
+    s.settimeout(20)
+    s.connect(sock_path)
+    req = {"id": "patch", "method": "server.live_handoff",
+           "params": {"import_exe": bin_path}}
+    s.sendall((json.dumps(req) + '\n').encode())
+    print('herdr-patch-separator: live_handoff ->', s.makefile().readline().strip())
+except Exception as e:
+    print(f'herdr-patch-separator: live_handoff failed ({e}); patch applies on next server start')
+PY
