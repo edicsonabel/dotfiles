@@ -124,6 +124,7 @@ alias vim='nvim'
 # one restored by tmux-continuum). When it is down (after reboot), create the
 # first session: loading tmux.conf triggers continuum-restore in the
 # background, which brings back the previous sessions in the same server.
+
 # herdr: `herdr` launches or attaches to its persistent session; skip when
 # already inside a herdr pane (HERDR_ENV) or a tmux pane ($TMUX).
 TERMINAL_MUX=herdr

@@ -87,3 +87,11 @@ else
 fi
 
 export VISUAL="nano"
+
+# Secretos de servidores MCP, referenciados como ${VAR} (Claude Code) o
+# {env:VAR} (OpenCode) desde la config de cada proyecto. Viven fuera de todo
+# repo (600) para no duplicarse en cada uno. Va aquí y no en ~/.profile porque
+# los agentes de código y editores arrancan shells que nunca leen ~/.zshrc.
+if [ -f "$HOME/.config/ia/mcp.env" ] ; then
+  . "$HOME/.config/ia/mcp.env"
+fi
