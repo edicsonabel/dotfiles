@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Activar VSCode
+Exec=/home/edicsonabel/.local/bin/raise-or-launch Code code
+Icon=code
+Terminal=false
+Categories=Utility;
+X-KDE-GlobalAccel=Meta+4

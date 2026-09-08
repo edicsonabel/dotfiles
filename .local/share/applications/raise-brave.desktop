@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Activar Brave
+Exec=/home/edicsonabel/.local/bin/raise-or-launch brave-browser brave
+Icon=brave
+Terminal=false
+Categories=Utility;
+X-KDE-GlobalAccel=Meta+1

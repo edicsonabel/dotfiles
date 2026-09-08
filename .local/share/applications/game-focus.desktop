@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Recuperar foco del juego
+Exec=/home/edicsonabel/.local/bin/game-focus
+Icon=input-gaming
+Terminal=false
+Categories=Utility;
+X-KDE-GlobalAccel=Meta+F

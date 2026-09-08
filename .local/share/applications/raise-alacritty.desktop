@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Activar Alacritty
+Exec=/home/edicsonabel/.local/bin/raise-or-launch Alacritty alacritty
+Icon=alacritty
+Terminal=false
+Categories=Utility;
+X-KDE-GlobalAccel=Meta+2
