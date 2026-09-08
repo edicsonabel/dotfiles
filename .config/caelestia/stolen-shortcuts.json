@@ -1,20 +1,30 @@
 [
     {
-        "action": "activate task manager entry 7",
-        "actionFriendlyName": "Activar la entrada 7 del gestor de tareas",
+        "action": "activate application launcher",
+        "actionFriendlyName": "Activar el lanzador de aplicaciones",
         "component": "plasmashell",
         "componentFriendlyName": "plasmashell",
         "keys": [
-            "Meta+7"
+            "Alt+F1",
+            "Meta"
         ]
     },
     {
-        "action": "show-on-mouse-pos",
-        "actionFriendlyName": "Mostrar elementos del portapapeles en la posición del ratón",
+        "action": "Log Out",
+        "actionFriendlyName": "Mostrar pantalla de cierre de sesión",
+        "component": "ksmserver",
+        "componentFriendlyName": "Gestión de la sesión",
+        "keys": [
+            "Ctrl+Alt+Del"
+        ]
+    },
+    {
+        "action": "activate task manager entry 9",
+        "actionFriendlyName": "Activar la entrada 9 del gestor de tareas",
         "component": "plasmashell",
         "componentFriendlyName": "plasmashell",
         "keys": [
-            "Meta+V"
+            "Meta+9"
         ]
     },
     {
@@ -28,6 +38,43 @@
         ]
     },
     {
+        "action": "powerProfile",
+        "actionFriendlyName": "Cambiar perfil de energía",
+        "component": "org_kde_powerdevil",
+        "componentFriendlyName": "Gestión de energía",
+        "keys": [
+            "Battery",
+            "Meta+B"
+        ]
+    },
+    {
+        "action": "show-on-mouse-pos",
+        "actionFriendlyName": "Mostrar elementos del portapapeles en la posición del ratón",
+        "component": "plasmashell",
+        "componentFriendlyName": "plasmashell",
+        "keys": [
+            "Meta+V"
+        ]
+    },
+    {
+        "action": "previous activity",
+        "actionFriendlyName": "Recorrer las actividades (en orden inverso)",
+        "component": "plasmashell",
+        "componentFriendlyName": "plasmashell",
+        "keys": [
+            "Meta+Shift+A"
+        ]
+    },
+    {
+        "action": "activate task manager entry 5",
+        "actionFriendlyName": "Activar la entrada 5 del gestor de tareas",
+        "component": "plasmashell",
+        "componentFriendlyName": "plasmashell",
+        "keys": [
+            "Meta+5"
+        ]
+    },
+    {
         "action": "Grid View",
         "actionFriendlyName": "Conmutar a la vista de cuadrícula",
         "component": "kwin",
@@ -37,41 +84,12 @@
         ]
     },
     {
-        "action": "Log Out",
-        "actionFriendlyName": "Mostrar pantalla de cierre de sesión",
-        "component": "ksmserver",
-        "componentFriendlyName": "Gestión de la sesión",
-        "keys": [
-            "Ctrl+Alt+Del"
-        ]
-    },
-    {
-        "action": "activate task manager entry 8",
-        "actionFriendlyName": "Activar la entrada 8 del gestor de tareas",
+        "action": "activate task manager entry 7",
+        "actionFriendlyName": "Activar la entrada 7 del gestor de tareas",
         "component": "plasmashell",
         "componentFriendlyName": "plasmashell",
         "keys": [
-            "Meta+8"
-        ]
-    },
-    {
-        "action": "activate application launcher",
-        "actionFriendlyName": "Activar el lanzador de aplicaciones",
-        "component": "plasmashell",
-        "componentFriendlyName": "plasmashell",
-        "keys": [
-            "Alt+F1",
-            "Meta"
-        ]
-    },
-    {
-        "action": "Walk Through Windows (Reverse)",
-        "actionFriendlyName": "Recorrer las ventanas (hacia atrás)",
-        "component": "kwin",
-        "componentFriendlyName": "KWin",
-        "keys": [
-            "Meta+Shift+Tab",
-            "Alt+Shift+Tab"
+            "Meta+7"
         ]
     },
     {
@@ -93,21 +111,22 @@
         ]
     },
     {
-        "action": "previous activity",
-        "actionFriendlyName": "Recorrer las actividades (en orden inverso)",
-        "component": "plasmashell",
-        "componentFriendlyName": "plasmashell",
+        "action": "Walk Through Windows (Reverse)",
+        "actionFriendlyName": "Recorrer las ventanas (hacia atrás)",
+        "component": "kwin",
+        "componentFriendlyName": "KWin",
         "keys": [
-            "Meta+Shift+A"
+            "Meta+Shift+Tab",
+            "Alt+Shift+Tab"
         ]
     },
     {
-        "action": "activate task manager entry 9",
-        "actionFriendlyName": "Activar la entrada 9 del gestor de tareas",
+        "action": "activate task manager entry 8",
+        "actionFriendlyName": "Activar la entrada 8 del gestor de tareas",
         "component": "plasmashell",
         "componentFriendlyName": "plasmashell",
         "keys": [
-            "Meta+9"
+            "Meta+8"
         ]
     },
     {
@@ -117,25 +136,6 @@
         "componentFriendlyName": "plasmashell",
         "keys": [
             "Meta+6"
-        ]
-    },
-    {
-        "action": "activate task manager entry 5",
-        "actionFriendlyName": "Activar la entrada 5 del gestor de tareas",
-        "component": "plasmashell",
-        "componentFriendlyName": "plasmashell",
-        "keys": [
-            "Meta+5"
-        ]
-    },
-    {
-        "action": "powerProfile",
-        "actionFriendlyName": "Cambiar perfil de energía",
-        "component": "org_kde_powerdevil",
-        "componentFriendlyName": "Gestión de energía",
-        "keys": [
-            "Battery",
-            "Meta+B"
         ]
     }
 ]

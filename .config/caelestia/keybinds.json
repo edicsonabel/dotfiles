@@ -19,5 +19,7 @@
     "sidebar": "Meta+B",
     "wallpaper": "Meta+Ctrl+T",
     "windowSwitcher": "Alt+Tab",
-    "windowSwitcherReverse": "Alt+Shift+Tab"
+    "windowSwitcherReverse": "Alt+Shift+Tab",
+    "wallpaperNext": "Meta+Ctrl+.",
+    "wallpaperPrev": "Meta+Ctrl+,"
 }

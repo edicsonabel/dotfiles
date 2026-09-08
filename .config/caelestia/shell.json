@@ -1,14 +1,42 @@
 {
+    "appearance": {
+        "font": {
+            "body": {
+                "family": "SF Pro"
+            },
+            "headline": {
+                "family": "SF Pro"
+            },
+            "label": {
+                "family": "SF Pro"
+            },
+            "mono": {
+                "family": "CaskaydiaCove NF"
+            },
+            "title": {
+                "family": "SF Pro"
+            }
+        }
+    },
     "background": {
         "desktopClock": {
+            "enabled": true,
             "invertColors": false,
+            "position": "bottom-right",
             "scale": 1
         },
         "desktopIconsEnabled": false,
         "desktopLyrics": {
-            "scale": 1.9
+            "autoHide": true,
+            "enabled": true,
+            "position": "top-left",
+            "scale": 1.5
         },
         "videoWallpaperPaused": false,
+        "visualiser": {
+            "blur": true,
+            "hideOnAllMonitors": true
+        },
         "wallpaperFillMode": 2
     },
     "bar": {
