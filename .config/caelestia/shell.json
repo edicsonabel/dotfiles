@@ -8,6 +8,7 @@
         "desktopLyrics": {
             "scale": 1.9
         },
+        "videoWallpaperPaused": false,
         "wallpaperFillMode": 2
     },
     "bar": {
