@@ -486,6 +486,8 @@ source ~/.profile
 # a las terminales ya abiertas y deja una copia en sequences.txt. Sin esta linea,
 # una terminal nueva arranca con los colores de alacritty.toml y no con los del
 # tema. Solo en sesiones interactivas: volcar ANSI en un script corrompe su salida.
+# `command` salta el alias cat='bat' de ~/.profile, que ya esta activo aqui:
+# bat imprimiria la cabecera y los numeros de linea en vez de volcar los bytes.
 if [[ -o interactive ]] && [[ -f ~/.local/state/caelestia/sequences.txt ]]; then
-    cat ~/.local/state/caelestia/sequences.txt
+    command cat ~/.local/state/caelestia/sequences.txt
 fi
