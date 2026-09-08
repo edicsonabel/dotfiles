@@ -1,6 +1,13 @@
 {
     "background": {
+        "desktopClock": {
+            "invertColors": false,
+            "scale": 1
+        },
         "desktopIconsEnabled": false,
+        "desktopLyrics": {
+            "scale": 1.9
+        },
         "wallpaperFillMode": 2
     },
     "bar": {
@@ -106,6 +113,11 @@
         }
     },
     "general": {
+        "apps": {
+            "terminal": [
+                "alacritty"
+            ]
+        },
         "caelestiaMode": false,
         "checkUpdates": false
     },
@@ -117,8 +129,11 @@
             "code"
         ]
     },
+    "lock": {
+        "blurWallpaper": true
+    },
     "services": {
         "useTwelveHourClock": false,
-        "weatherLocation": "10.0678,-69.3467"
+        "weatherLocation": "10.0647,-69.3570"
     }
 }

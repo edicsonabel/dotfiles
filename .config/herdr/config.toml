@@ -30,7 +30,8 @@ name = "terminal"
 auto_switch = false
 
 [theme.custom]
-accent = "#08FF83" # bg of focused tab + highlights/borders/navigation
+# Lo escribe herdr-theme-sync desde la paleta de Caelestia; no editar a mano.
+accent = "#89ecff"
 
 [terminal]
 # Executable used for new interactive panes.
