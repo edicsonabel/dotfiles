@@ -1,0 +1,6 @@
+[Greeter]
+WallpaperPlugin=org.kde.image
+
+[Greeter][Wallpaper][org.kde.image][General]
+Image=file:///run/media/edicsonabel/EdicsonAbel/Imágenes/Wallpapers/dharmx-digital/a_car_parked_in_a_field_with_trees_and_a_crescent_moon_in_the_sky.png
+PreviewImage=/home/edicsonabel/Imágenes/wallpapers/desktop/023.jpg
