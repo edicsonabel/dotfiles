@@ -482,12 +482,16 @@ source ~/.profile
 # bun completions
 [ -s "/home/edicsonabel/.bun/_bun" ] && source "/home/edicsonabel/.bun/_bun"
 
-# Colores del tema de Caelestia: `caelestia scheme` los manda por secuencias ANSI
-# a las terminales ya abiertas y deja una copia en sequences.txt. Sin esta linea,
-# una terminal nueva arranca con los colores de alacritty.toml y no con los del
-# tema. Solo en sesiones interactivas: volcar ANSI en un script corrompe su salida.
-# `command` salta el alias cat='bat' de ~/.profile, que ya esta activo aqui:
-# bat imprimiria la cabecera y los numeros de linea en vez de volcar los bytes.
-if [[ -o interactive ]] && [[ -f ~/.local/state/caelestia/sequences.txt ]]; then
-    command cat ~/.local/state/caelestia/sequences.txt
-fi
+# Colores de terminal: DESACTIVADO a proposito (2026-09-08).
+#
+# Caelestia manda los colores de su tema por secuencias ANSI y deja una copia en
+# ~/.local/state/caelestia/sequences.txt. Volcarla aqui hacia que cada terminal
+# nueva arrancara con los colores del tema en vez de los de alacritty.toml, y que
+# cambiaran solos cada vez que el tema cambiaba.
+#
+# Se prefieren los colores fijos de ~/.config/alacritty/alacritty.toml.
+# Para volver al comportamiento anterior, descomentar:
+#
+# if [[ -o interactive ]] && [[ -f ~/.local/state/caelestia/sequences.txt ]]; then
+#     command cat ~/.local/state/caelestia/sequences.txt
+# fi

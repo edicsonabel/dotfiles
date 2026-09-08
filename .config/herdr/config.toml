@@ -30,8 +30,9 @@ name = "terminal"
 auto_switch = false
 
 [theme.custom]
-# Lo escribe herdr-theme-sync desde la paleta de Caelestia; no editar a mano.
-accent = "#89ecff"
+# Fijo a proposito (2026-09-08): coincide con el cyan de alacritty.toml.
+# Ya no lo escribe herdr-theme-sync — ver la cabecera de ese script.
+accent = "#08FF83"
 
 [terminal]
 # Executable used for new interactive panes.
