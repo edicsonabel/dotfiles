@@ -1,0 +1,23 @@
+{
+    "clipboard": "Meta+V",
+    "code": "Meta+C",
+    "emoji": "Meta+Shift+V",
+    "firefox": "Meta+W",
+    "foot": "Meta+Return",
+    "github-desktop": "Meta+G",
+    "googleLens": "Meta+Shift+A",
+    "kcolorpicker": "Meta+Shift+C",
+    "keybinds": "Meta+/",
+    "launcher": "Meta+Space; Meta",
+    "lock": "Meta+L",
+    "nemo": "Meta+Alt+E",
+    "ocr": "Meta+Shift+D",
+    "overview": "Meta+Tab",
+    "screenRecording": "Meta+Ctrl+S",
+    "screenshot": "Meta+Shift+S",
+    "session": "Ctrl+Alt+Delete",
+    "sidebar": "Meta+B",
+    "wallpaper": "Meta+Ctrl+T",
+    "windowSwitcher": "Alt+Tab",
+    "windowSwitcherReverse": "Alt+Shift+Tab"
+}

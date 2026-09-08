@@ -481,3 +481,11 @@ source ~/.profile
 
 # bun completions
 [ -s "/home/edicsonabel/.bun/_bun" ] && source "/home/edicsonabel/.bun/_bun"
+
+# Colores del tema de Caelestia: `caelestia scheme` los manda por secuencias ANSI
+# a las terminales ya abiertas y deja una copia en sequences.txt. Sin esta linea,
+# una terminal nueva arranca con los colores de alacritty.toml y no con los del
+# tema. Solo en sesiones interactivas: volcar ANSI en un script corrompe su salida.
+if [[ -o interactive ]] && [[ -f ~/.local/state/caelestia/sequences.txt ]]; then
+    cat ~/.local/state/caelestia/sequences.txt
+fi
