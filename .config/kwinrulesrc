@@ -1,0 +1,13 @@
+[1]
+Description=Rocket League — fullscreen fijo, sin minimizar al perder el foco
+fullscreen=true
+fullscreenrule=2
+minimize=false
+minimizerule=3
+wmclass=rocketleague.exe
+wmclasscomplete=false
+wmclassmatch=1
+
+[General]
+count=1
+rules=1

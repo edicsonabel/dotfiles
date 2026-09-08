@@ -148,7 +148,8 @@
             ]
         },
         "caelestiaMode": false,
-        "checkUpdates": false
+        "checkUpdates": false,
+        "showOverFullscreen": false
     },
     "launcher": {
         "favouriteApps": [
