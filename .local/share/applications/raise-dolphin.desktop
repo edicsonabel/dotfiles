@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Activar Dolphin
-Exec=/home/edicsonabel/.local/bin/raise-or-launch dolphin dolphin
-Icon=dolphin
-Terminal=false
-Categories=Utility;
-X-KDE-GlobalAccel=Meta+3
