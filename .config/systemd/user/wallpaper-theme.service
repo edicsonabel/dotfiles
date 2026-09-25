@@ -1,0 +1,15 @@
+[Unit]
+Description=Tema MacTahoe claro/oscuro según el brillo del fondo
+PartOf=graphical-session.target
+After=graphical-session.target plasma-plasmashell.service
+
+[Service]
+Type=simple
+# Solo en Plasma: en Hyprland no hay plasmashell al que preguntar el fondo.
+ExecCondition=/bin/sh -c '[ "$XDG_CURRENT_DESKTOP" = KDE ]'
+ExecStart=%h/.local/bin/wallpaper-theme
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=graphical-session.target
