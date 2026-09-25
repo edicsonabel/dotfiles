@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Atajo: fondo anterior
+Comment=Fondo anterior de la carpeta del actual (wallpaper-next --prev)
+Exec=/home/edicsonabel/.local/bin/wallpaper-next --prev
+Icon=preferences-desktop-wallpaper
+Terminal=false
+NoDisplay=true
+Categories=Utility;
+X-KDE-Shortcuts=Meta+Ctrl+\,
