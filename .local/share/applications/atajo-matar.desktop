@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Atajo: matar el programa activo
+Comment=Termina el proceso de la ventana activa (kill-active)
+Exec=/home/edicsonabel/.local/bin/kill-active
+Icon=process-stop
+Terminal=false
+NoDisplay=true
+Categories=Utility;
+X-KDE-Shortcuts=Ctrl+Shift+Q

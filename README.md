@@ -24,7 +24,7 @@ traducir rutas.
 | `.config/environment.d/` | Variables de sesión (carpetas XDG) |
 | `.config/dolphinrc`, `.config/kwinrulesrc`, `.config/kscreenlockerrc` | KDE: Dolphin, regla de Rocket League, fondo del bloqueo |
 | `.config/wireplumber/` | Audio: sin suspensión, prioridad del micro de auriculares |
-| `.local/share/applications/` | `game-focus.desktop` |
+| `.local/share/applications/` | `game-focus.desktop`, y los atajos globales `atajo-captura` (`Meta+Shift+S`) y `atajo-matar` (`Ctrl+Shift+Q`). Para registrarlos hace falta además un symlink en `~/.local/share/kglobalaccel/` y `kbuildsycoca6 --noincremental` |
 | `.config/systemd/user/` | Units de usuario |
 
 Qué se guarda, qué se decidió dejar fuera y cómo restaurar tras una actualización que

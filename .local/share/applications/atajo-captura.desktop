@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Atajo: Captura de región
+Comment=Atajo global heredado de Caelestia
+Exec=/home/edicsonabel/.local/bin/screenshot-wayland
+Icon=spectacle
+Terminal=false
+NoDisplay=true
+Categories=Utility;
+X-KDE-Shortcuts=Meta+Shift+S
