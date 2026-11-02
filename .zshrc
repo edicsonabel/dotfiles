@@ -397,14 +397,6 @@ open() {
   xdg-open "$@" > /dev/null 2>&1
 }
 
-auto_compinit(){
-  autoload -Uz copinit
-  for dump in ~/.zcompdump(N.mh+24); do
-    compinit
-  done
-  compinit -C
-}
-
 rc() {
   printf '\e[3 q'
 }
@@ -470,10 +462,11 @@ build_prompt() {
   # prompt_bzr
   prompt_hg
   prompt_end
-  auto_compinit
 }
 
-PROMPT='%{%f%b%k%}$(build_prompt) '
+# 2 líneas: marco ╭─/╰─, input abajo; ❯ cyan si OK, roja si falló
+PROMPT='%F{8}╭─%f%{%f%b%k%}$(build_prompt)
+%F{8}╰─%f%(?.%F{cyan}.%F{red})❯%f '
 
 source ~/.profile
 
