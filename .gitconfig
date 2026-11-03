@@ -15,6 +15,11 @@
 	ff = only
 [safe]
 	directory = *
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 # Machine-local settings: credential helpers, work hosts, anything gh or Git
 # Credential Manager writes on its own. ~/.gitconfig is a symlink into this
 # repo, so `git config --global` lands here -- keep such settings in the
