@@ -1,0 +1,11 @@
+[Unit]
+Description=Discord: chequeo periódico de OpenH264
+
+[Timer]
+# Las actualizaciones que rompieron el vídeo (2026-10-29) son internas de Discord,
+# no de pacman → un hook de pacman no las ve. Se revisa al entrar y cada 10 min.
+OnStartupSec=2min
+OnUnitActiveSec=10min
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,7 @@
+[Unit]
+Description=Discord: verificar que OpenH264 (vídeo de llamadas) esté disponible
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/discord-video-check

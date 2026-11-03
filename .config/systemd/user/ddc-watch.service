@@ -1,0 +1,14 @@
+[Unit]
+Description=Brillo de monitores externos: re-sondear DDC/CI si KWin lo perdió
+# KWin sondea DDC solo al conectar; tras un corte de luz el slider desaparece.
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=%h/.local/bin/ddc-watch --daemon
+# El script vive en el disco NTFS; si aún no está montado, reintentar.
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=graphical-session.target
